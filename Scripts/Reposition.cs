@@ -7,48 +7,48 @@ public class Reposition : MonoBehaviour
     [SerializeField]
     private Transform playerTrans;
     
-    //Trigger Ã¼Å©(Ãæµ¹¿¡¼­ ¹ş¾î³ª¸é ½ÇÇà)
+    //Trigger ì²´í¬(ì¶©ëŒì—ì„œ ë²—ì–´ë‚˜ë©´ ì‹¤í–‰)
     private void OnTriggerExit(Collider collision)
     {
-        //..tag°¡ "Area" ¾Æ´Ï¸é ÇÔ¼ö Å»Ãâ
+        //..tagê°€ "Area" ì•„ë‹ˆë©´ í•¨ìˆ˜ íƒˆì¶œ
         if (!collision.CompareTag("Area"))
             return;
 
-        //..player À§Ä¡, ÇöÀç À§Ä¡
+        //..player ìœ„ì¹˜, í˜„ì¬ ìœ„ì¹˜
         Vector3 playerPos = this.playerTrans.position;
         Vector3 myPos = this.transform.position;
 
-        //..µÑ »çÀÌÀÇ °Å¸® ±¸ÇÏ±â(x,y)
+        //..ë‘˜ ì‚¬ì´ì˜ ê±°ë¦¬ êµ¬í•˜ê¸°(x,y)
         float dirX = playerPos.x - myPos.x;
         float dirZ = playerPos.z - myPos.z;
 
-        //..°Å¸®°ªÀ» Àı´ë°ªÀ¸·Î º¯È¯
+        //..ê±°ë¦¬ê°’ì„ ì ˆëŒ€ê°’ìœ¼ë¡œ ë³€í™˜
         float diffX = Mathf.Abs(dirX);
         float diffZ = Mathf.Abs(dirZ);
 
-        //..°Å¸®¿¡ µû¶ó °ª(¹æÇâ) ÁöÁ¤ÇÏ±â(¿À¸¥ÂÊ : 1, ¿ŞÂÊ : -1)
+        //..ê±°ë¦¬ì— ë”°ë¼ ê°’(ë°©í–¥) ì§€ì •í•˜ê¸°(ì˜¤ë¥¸ìª½ : 1, ì™¼ìª½ : -1)
         dirX = dirX > 0 ? 1 : -1;
         dirZ = dirZ > 0 ? 1 : -1;
 
 
-        //ÀÌµ¿½ÃÅ°±â
-        //..switch ~ case : º¯¼öÀÇ °ª¿¡ µû¶ó ´Ù¸¥ ·ÎÁ÷ ½ÇÇà
+        //ì´ë™ì‹œí‚¤ê¸°
+        //..switch ~ case : ë³€ìˆ˜ì˜ ê°’ì— ë”°ë¼ ë‹¤ë¥¸ ë¡œì§ ì‹¤í–‰
         switch (transform.tag)
         {
             case "Ground":
-                //..´ë°¢¼±À¸·Î ÀÌµ¿½Ã
+                //..ëŒ€ê°ì„ ìœ¼ë¡œ ì´ë™ì‹œ
                 if (Mathf.Abs(diffX - diffZ) <= 0.1f)
                 {
                     transform.Translate(Vector3.forward * dirZ * 400);
                     transform.Translate(Vector3.right * dirX * 400);
-                    Debug.LogFormat("´ë°¢¼± : {0}",Vector3.right * dirX * 400);
+                    Debug.LogFormat("ëŒ€ê°ì„  : {0}",Vector3.right * dirX * 400);
                 }
-                //..ÁÂ¿ì·Î ÀÌµ¿½Ã
+                //..ì¢Œìš°ë¡œ ì´ë™ì‹œ
                 else if (diffX > diffZ)
                 {
                     transform.Translate(Vector3.right * dirX * 400);
                 }
-                //..»óÇÏ·Î ÀÌµ¿½Ã
+                //..ìƒí•˜ë¡œ ì´ë™ì‹œ
                 else if (diffX < diffZ)
                 {
                     transform.Translate(Vector3.forward * dirZ * 400);
