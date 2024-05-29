@@ -20,11 +20,11 @@ public class Item : MonoBehaviour
 
     void Awake()
     {
-        //GetComponentsInchildren¿¡¼­ 2¹øÂ° °ªÀ¸·Î °¡Á®¿À±â(1¹øÂ° : ÀÚ±âÀÚ½Å)
+        //GetComponentsInchildrenì—ì„œ 2ë²ˆì§¸ ê°’ìœ¼ë¡œ ê°€ì ¸ì˜¤ê¸°(1ë²ˆì§¸ : ìê¸°ìì‹ )
         this.bg = this.GetComponentsInChildren<Image>()[1];
         this.icon = this.GetComponentsInChildren<Image>()[2];
 
-        //¾ÆÀÌÄÜ ³Ö¾îÁÖ±â
+        //ì•„ì´ì½˜ ë„£ì–´ì£¼ê¸°
         this.icon.sprite = data.itemIcon;
         this.bg.sprite = data.bgIcon;
 
@@ -33,14 +33,14 @@ public class Item : MonoBehaviour
         this.txtName = texts[1];
         this.txtDesc = texts[2];
 
-        //ÀÌ¸§ ³Ö¾îÁÖ±â
+        //ì´ë¦„ ë„£ì–´ì£¼ê¸°
         this.txtName.text = data.itemName;
     }
 
-    //È°¼ºÈ­½Ã µ¿ÀÛ
+    //í™œì„±í™”ì‹œ ë™ì‘
     void OnEnable()
     {
-        //·¹º§ 1ºÎÅÍ ½ÃÀÛ
+        //ë ˆë²¨ 1ë¶€í„° ì‹œì‘
         txtLevel.text = string.Format("Lv.{0}", (level + 1).ToString());
         switch (data.itemType) 
         {
@@ -51,13 +51,13 @@ public class Item : MonoBehaviour
                 txtDesc.text = string.Format(data.descs[level], data.damages[level] * 100, data.sizes[level] * 100);
                 break;
             case ItemData.eItemType.Ice_Bolt:
-                //..count »« ³ª¸ÓÁö --> ¹éºĞÀ²
+                //..count ëº€ ë‚˜ë¨¸ì§€ --> ë°±ë¶„ìœ¨
                 txtDesc.text = string.Format(data.descs[level], data.damages[level] * 100, data.counts[level]);
                 break;
             case ItemData.eItemType.Heal:
             case ItemData.eItemType.Shoe:
             case ItemData.eItemType.Shield:
-                //¸ğµÎ --> ¹éºĞÀ²
+                //ëª¨ë‘ --> ë°±ë¶„ìœ¨
                 txtDesc.text = string.Format(data.descs[level],data.damages[level]*100);
                 break;
         }
@@ -73,27 +73,27 @@ public class Item : MonoBehaviour
                 {
                     GameObject newWeapon = new GameObject();
                     this.weapon = newWeapon.AddComponent<Weapon>();
-                    //Weapon ÃÊ±âÈ­
+                    //Weapon ì´ˆê¸°í™”
                     this.weapon.Init(data);
                     this.weapon.transform.Rotate(new Vector3(90, 0, 0));
                 }
                 else
                 {
-                    //...Ã³À½ ÀÌÈÄÀÇ ·¹º§¾÷Àº µ¥¹ÌÁö¿Í È½¼ö¸¦ °è»ê
-                    //»õ·Î¿î ¹«±âÀÌ¸é damage ¿Ã·ÁÁà¾ßÇÔ
+                    //...ì²˜ìŒ ì´í›„ì˜ ë ˆë²¨ì—…ì€ ë°ë¯¸ì§€ì™€ íšŸìˆ˜ë¥¼ ê³„ì‚°
+                    //ìƒˆë¡œìš´ ë¬´ê¸°ì´ë©´ damage ì˜¬ë ¤ì¤˜ì•¼í•¨
                     float nextDamage = data.baseDamage;
                     int nextCount = 0;
                     float nextSpeed = data.baseSpeed;
 
-                    //damages°¡ ¹éºĞ·ü °ªÀÌ¹Ç·Î °öÇØÁØ ´ÙÀ½ ´õÇØÁÜ
+                    //damagesê°€ ë°±ë¶„ë¥  ê°’ì´ë¯€ë¡œ ê³±í•´ì¤€ ë‹¤ìŒ ë”í•´ì¤Œ
                     nextDamage += data.baseDamage * data.damages[level];
                     nextCount += data.counts[level];
                     nextSpeed += data.baseSpeed * data.speeds[level];
 
-                    //Weapon ·¹º§¾÷
+                    //Weapon ë ˆë²¨ì—…
                     weapon.LevelUp(nextDamage, nextCount,nextSpeed,0);
                 }
-                //level Áõ°¡
+                //level ì¦ê°€
                 level++;
                 break;
             case ItemData.eItemType.Ice_Bolt:
@@ -101,24 +101,24 @@ public class Item : MonoBehaviour
                 {
                     GameObject newWeapon = new GameObject();
                     this.weapon = newWeapon.AddComponent<Weapon>();
-                    //Weapon ÃÊ±âÈ­
+                    //Weapon ì´ˆê¸°í™”
                     this.weapon.Init(data);
                 }
                 else
                 {
-                    //...Ã³À½ ÀÌÈÄÀÇ ·¹º§¾÷Àº µ¥¹ÌÁö¿Í È½¼ö¸¦ °è»ê
-                    //»õ·Î¿î ¹«±âÀÌ¸é damage ¿Ã·ÁÁà¾ßÇÔ
+                    //...ì²˜ìŒ ì´í›„ì˜ ë ˆë²¨ì—…ì€ ë°ë¯¸ì§€ì™€ íšŸìˆ˜ë¥¼ ê³„ì‚°
+                    //ìƒˆë¡œìš´ ë¬´ê¸°ì´ë©´ damage ì˜¬ë ¤ì¤˜ì•¼í•¨
                     float nextDamage = data.baseDamage;
                     int nextCount = 0;
 
-                    //damages°¡ ¹éºĞ·ü °ªÀÌ¹Ç·Î °öÇØÁØ ´ÙÀ½ ´õÇØÁÜ
+                    //damagesê°€ ë°±ë¶„ë¥  ê°’ì´ë¯€ë¡œ ê³±í•´ì¤€ ë‹¤ìŒ ë”í•´ì¤Œ
                     nextDamage += data.baseDamage * data.damages[level];
                     nextCount += data.counts[level];
 
-                    //Weapon ·¹º§¾÷
+                    //Weapon ë ˆë²¨ì—…
                     weapon.LevelUp(nextDamage, nextCount,0,0);
                 }
-                //level Áõ°¡
+                //level ì¦ê°€
                 level++;
                 break;
             case ItemData.eItemType.Aura:
@@ -126,24 +126,24 @@ public class Item : MonoBehaviour
                 {
                     GameObject newWeapon = new GameObject();
                     this.weapon = newWeapon.AddComponent<Weapon>();
-                    //Weapon ÃÊ±âÈ­
+                    //Weapon ì´ˆê¸°í™”
                     this.weapon.Init(data);
                 }
                 else
                 {
-                    //...Ã³À½ ÀÌÈÄÀÇ ·¹º§¾÷Àº µ¥¹ÌÁö¿Í È½¼ö¸¦ °è»ê
-                    //»õ·Î¿î ¹«±âÀÌ¸é damage ¿Ã·ÁÁà¾ßÇÔ
+                    //...ì²˜ìŒ ì´í›„ì˜ ë ˆë²¨ì—…ì€ ë°ë¯¸ì§€ì™€ íšŸìˆ˜ë¥¼ ê³„ì‚°
+                    //ìƒˆë¡œìš´ ë¬´ê¸°ì´ë©´ damage ì˜¬ë ¤ì¤˜ì•¼í•¨
                     float nextDamage = data.baseDamage;
                     float nextSize = data.baseSize;
 
-                    //damages°¡ ¹éºĞ·ü °ªÀÌ¹Ç·Î °öÇØÁØ ´ÙÀ½ ´õÇØÁÜ
+                    //damagesê°€ ë°±ë¶„ë¥  ê°’ì´ë¯€ë¡œ ê³±í•´ì¤€ ë‹¤ìŒ ë”í•´ì¤Œ
                     nextDamage += data.baseDamage * data.damages[level];
                     nextSize += data.baseSize * data.sizes[level];
 
-                    //Weapon ·¹º§¾÷
+                    //Weapon ë ˆë²¨ì—…
                     weapon.LevelUp(nextDamage, 0, 0, nextSize);
                 }
-                //level Áõ°¡
+                //level ì¦ê°€
                 level++;
                 break;
             case ItemData.eItemType.Shoe:
@@ -153,7 +153,7 @@ public class Item : MonoBehaviour
                 {
                     GameObject newGear = new GameObject();
                     this.gear = newGear.AddComponent<Gear>();
-                    //Gear ÃÊ±âÈ­
+                    //Gear ì´ˆê¸°í™”
                     this.gear.Init(data);
                 }
                 else
@@ -165,8 +165,8 @@ public class Item : MonoBehaviour
            
         }
 
-        //...·¹º§ °³¼ö ³Ñ±âÁö ¾Ê°Ô ·ÎÁ÷ Ãß°¡
-        //DescÀÇ ¹è¿­±æÀÌ:5 ¸¦ ³Ñ¾î°¡¸é ButtonÀÇ interactable ºñÈ°¼ºÈ­(Åõ¸íÇÏ°Ô)
+        //...ë ˆë²¨ ê°œìˆ˜ ë„˜ê¸°ì§€ ì•Šê²Œ ë¡œì§ ì¶”ê°€
+        //Descì˜ ë°°ì—´ê¸¸ì´:5 ë¥¼ ë„˜ì–´ê°€ë©´ Buttonì˜ interactable ë¹„í™œì„±í™”(íˆ¬ëª…í•˜ê²Œ)
         if (level == data.descs.Length)
         {
             GetComponent<Button>().interactable = false;
