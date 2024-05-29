@@ -30,7 +30,7 @@ public class DamageTxt : MonoBehaviour
 
     private void Update()
     {
-        transform.Translate(new Vector3(0, textSpeed * Time.deltaTime, 0));  //���� �ö󰡴�
+        transform.Translate(new Vector3(0, textSpeed * Time.deltaTime, 0));  //À§·Î ¿Ã¶ó°¡´Â
     }
    
 }
