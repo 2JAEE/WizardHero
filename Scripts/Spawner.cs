@@ -6,37 +6,37 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    //PointµéÀÇ transform
+    //Pointë“¤ì˜ transform
     [Header("#Prefabs")]
-    //spawnPoint ¹è¿­
+    //spawnPoint ë°°ì—´
     [SerializeField]
     private Transform[] pointTrans;
-    //spawnData ¹è¿­
+    //spawnData ë°°ì—´
     public SpawnData[] spawnData;
 
     public System.Action<Vector3, float> onCreateDamageText;
 
-    //..Å¸ÀÌ¸Ó
+    //..íƒ€ì´ë¨¸
     private float timer;
-    //..·¹º§
+    //..ë ˆë²¨
     private int level;
 
     void Start()
     {
-        //ÇöÀç transformÀÇ ÀÚ½ÄÀ¸·Î ºÙ¿©ÁÖ±â
+        //í˜„ì¬ transformì˜ ìì‹ìœ¼ë¡œ ë¶™ì—¬ì£¼ê¸°
         this.pointTrans = this.GetComponentsInChildren<Transform>();
     }
 
     void Update()
     {
-        //Å¸ÀÌ¸Ó ¼³Á¤
+        //íƒ€ì´ë¨¸ ì„¤ì •
         this.timer += Time.deltaTime;
 
-        //·¹º§ : °ÔÀÓ½Ã°£/10
-        //level -> int Çü½Ä, ³ª´« ³ª¸ÓÁö¸¦ ¹ö¸®°í ¸ò¸¸ int·Î º¯È¯
+        //ë ˆë²¨ : ê²Œì„ì‹œê°„/10
+        //level -> int í˜•ì‹, ë‚˜ëˆˆ ë‚˜ë¨¸ì§€ë¥¼ ë²„ë¦¬ê³  ëª«ë§Œ intë¡œ ë³€í™˜
         this.level = Mathf.FloorToInt(GameManager.instance.gameTime / 12f);
 
-        //spawnData[]¿¡¼­ ·¹º§¿¡ ÇØ´çÇÏ´Â spawnTimeÀÌ µÇ¸é ¸ó½ºÅÍ ¼ÒÈ¯
+        //spawnData[]ì—ì„œ ë ˆë²¨ì— í•´ë‹¹í•˜ëŠ” spawnTimeì´ ë˜ë©´ ëª¬ìŠ¤í„° ì†Œí™˜
         if(timer > spawnData[level].spawnTime)
         {
             timer = 0f;
@@ -44,16 +44,16 @@ public class Spawner : MonoBehaviour
         }
     }
 
-    //¸ó½ºÅÍ »ı¼º ÈÄ À§Ä¡ ÇÒ´ç ¸Ş¼­µå
+    //ëª¬ìŠ¤í„° ìƒì„± í›„ ìœ„ì¹˜ í• ë‹¹ ë©”ì„œë“œ
     public void Spawn()
     {
-        //poolµé Áß¿¡¼­ level¿¡ µû¶ó ¸ó½ºÅÍ È£Ãâ
+        //poolë“¤ ì¤‘ì—ì„œ levelì— ë”°ë¼ ëª¬ìŠ¤í„° í˜¸ì¶œ
         GameObject monsterGo = GameManager.instance.pool.Get(level);
-        //°¡Á®¿Â ¸ó½ºÅÍÀÇ À§Ä¡¸¦ pointTrans[]¿¡¼­ ·£´ı ¹èÄ¡
+        //ê°€ì ¸ì˜¨ ëª¬ìŠ¤í„°ì˜ ìœ„ì¹˜ë¥¼ pointTrans[]ì—ì„œ ëœë¤ ë°°ì¹˜
         monsterGo.transform.position 
             = this.pointTrans[Random.Range(1, this.pointTrans.Length)].transform.position;
         //Debug.LogFormat("<color=yellow>level : {0}</color>", level);
-        //¸ó½ºÅÍ È£Ãâ ¹× ÃÊ±âÈ­
+        //ëª¬ìŠ¤í„° í˜¸ì¶œ ë° ì´ˆê¸°í™”
         var monster = monsterGo.GetComponent<Monster>();
         monster.onHit = (damage) =>
         {
@@ -65,8 +65,8 @@ public class Spawner : MonoBehaviour
 }
 
 [System.Serializable]
-//...Á÷·ÄÈ­ ÇØÁÖ±â - °³Ã¼ ÀúÀå ¶Ç´Â Àü¼Û °¡´É
-//ÇÏ³ªÀÇ ½ºÅ©¸³Æ® ³»¿¡ ¿©·¯°³ÀÇ Å¬·¡½º ¼±¾ğ °¡´É
+//...ì§ë ¬í™” í•´ì£¼ê¸° - ê°œì²´ ì €ì¥ ë˜ëŠ” ì „ì†¡ ê°€ëŠ¥
+//í•˜ë‚˜ì˜ ìŠ¤í¬ë¦½íŠ¸ ë‚´ì— ì—¬ëŸ¬ê°œì˜ í´ë˜ìŠ¤ ì„ ì–¸ ê°€ëŠ¥
 public class SpawnData
 {
     public float spawnTime;
