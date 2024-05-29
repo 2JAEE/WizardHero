@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    //½Ì±ÛÅæ
+    //ì‹±ê¸€í†¤
     public static GameManager instance;
 
     //...GameObject...
@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     //...GameControl...
     public float gameTime;
     public float maxGameTime;
-    //½Ã°£ Á¤Áö ¿©ºÎ º¯¼ö
+    //ì‹œê°„ ì •ì§€ ì—¬ë¶€ ë³€ìˆ˜
     public bool isLive;
 
     //...PlayerInfo...
@@ -45,26 +45,26 @@ public class GameManager : MonoBehaviour
         {
             return;
         }
-        //..°ÔÀÓ(ÇÃ·¹ÀÌ)½Ã°£ = ÀÎ°ÔÀÓ ½Ã°£
+        //..ê²Œì„(í”Œë ˆì´)ì‹œê°„ = ì¸ê²Œì„ ì‹œê°„
         this.gameTime += Time.deltaTime;
 
-        //..°ÔÀÓ ½Ã°£ÀÌ ÃÖ´ë °ÔÀÓ½Ã°£À» ³Ñ¾î°¡¸é
+        //..ê²Œì„ ì‹œê°„ì´ ìµœëŒ€ ê²Œì„ì‹œê°„ì„ ë„˜ì–´ê°€ë©´
         if(this.gameTime > this.maxGameTime)
         {
-            //µÑÀ» °°°Ô ¸¸µé±â(ÃÖ´ë°ÔÀÓ ½Ã°£À» ³Ñ¾î°¡Áö ¾Êµµ·Ï)
+            //ë‘˜ì„ ê°™ê²Œ ë§Œë“¤ê¸°(ìµœëŒ€ê²Œì„ ì‹œê°„ì„ ë„˜ì–´ê°€ì§€ ì•Šë„ë¡)
             this.gameTime = this.maxGameTime;
-            //°ÔÀÓ ½Â¸®
+            //ê²Œì„ ìŠ¹ë¦¬
             this.GameVictory();
         }
     }
 
     public void StartGame()
     {
-        //Ã¼·Â ÃÊ±âÈ­
+        //ì²´ë ¥ ì´ˆê¸°í™”
         this.health = this.maxHealth;
-        //±âº» ¹«±â Áö±Ş
+        //ê¸°ë³¸ ë¬´ê¸° ì§€ê¸‰
         this.levelUp.Select(1);
-        //°ÔÀÓ½Ã°£ ÃÊ±âÈ­
+        //ê²Œì„ì‹œê°„ ì´ˆê¸°í™”
         this.Resume();
     }
 
@@ -81,7 +81,7 @@ public class GameManager : MonoBehaviour
 
         this.uiResult.gameObject.SetActive(true);
         this.uiResult.Lose();
-        //½Ã°£ ¸ØÃã
+        //ì‹œê°„ ë©ˆì¶¤
         Stop();
     }
 
@@ -99,47 +99,47 @@ public class GameManager : MonoBehaviour
 
         this.uiResult.gameObject.SetActive(true);
         this.uiResult.Win();
-        //½Ã°£ ¸ØÃã
+        //ì‹œê°„ ë©ˆì¶¤
         Stop();
 
     }
 
-    //°æÇèÄ¡ 
+    //ê²½í—˜ì¹˜ 
     public void GetExp()
     {
-        //°æÇèÄ¡ Áõ°¡
+        //ê²½í—˜ì¹˜ ì¦ê°€
         this.exp++;
 
-        //½×ÀÎ °æÇèÄ¡°¡ ¸ñÇ¥°æÇèÄ¡(´ÙÀ½°æÇèÄ¡)¿Í °°¾ÆÁú °æ¿ì
+        //ìŒ“ì¸ ê²½í—˜ì¹˜ê°€ ëª©í‘œê²½í—˜ì¹˜(ë‹¤ìŒê²½í—˜ì¹˜)ì™€ ê°™ì•„ì§ˆ ê²½ìš°
         if(this.exp == this.nextExp[Mathf.Min(this.level,nextExp.Length - 1)])
         {
-            //·¹º§ Áõ°¡
+            //ë ˆë²¨ ì¦ê°€
             this.level++;
-            //°æÇèÄ¡ ÃÊ±âÈ­
+            //ê²½í—˜ì¹˜ ì´ˆê¸°í™”
             this.exp = 0;
-            //·¹º§¾÷ Ã¢ º¸ÀÌ±â
+            //ë ˆë²¨ì—… ì°½ ë³´ì´ê¸°
             this.levelUp.Show();
         }
     }
 
-    //½Ã°£ Á¤Áö
+    //ì‹œê°„ ì •ì§€
     public void Stop()
     {
         this.isLive = false;
-        //...TimeScale = À¯´ÏÆ¼ ½Ã°£ ¼Óµµ(¹èÀ²)
+        //...TimeScale = ìœ ë‹ˆí‹° ì‹œê°„ ì†ë„(ë°°ìœ¨)
         Time.timeScale = 0;
 
-        //Á¶ÀÌ½ºÆ½ ¼û±â±â
+        //ì¡°ì´ìŠ¤í‹± ìˆ¨ê¸°ê¸°
         this.uiJoy.localScale = Vector3.zero;
     }
 
-    //½Ã°£ Àç°³
+    //ì‹œê°„ ì¬ê°œ
     public void Resume()
     {
         this.isLive = true;
         Time.timeScale = 1;
 
-        //Á¶ÀÌ½ºÆ½ º¸ÀÌ±â
+        //ì¡°ì´ìŠ¤í‹± ë³´ì´ê¸°
         this.uiJoy.localScale = Vector3.one;
     }
 
