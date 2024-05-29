@@ -27,10 +27,10 @@ public class UiResult : MonoBehaviour
 
     void Start()
     {
-        this.txtKill.text = string.Format("贸摹茄 利 : {0}",GameManager.instance.kill.ToString());
-        this.txtKill1.text = string.Format("贸摹茄 利 : {0}", GameManager.instance.kill.ToString());
+        this.txtKill.text = string.Format("脙鲁脛隆脟脩 脌没 : {0}",GameManager.instance.kill.ToString());
+        this.txtKill1.text = string.Format("脙鲁脛隆脟脩 脌没 : {0}", GameManager.instance.kill.ToString());
         float remainTime = GameManager.instance.maxGameTime - GameManager.instance.gameTime;
-        //盒
+        //潞脨
         int min = Mathf.FloorToInt(remainTime / 60);
         int sec = Mathf.FloorToInt(GameManager.instance.gameTime);
         this.txtTime.text = string.Format("{0:D2}:{1:D2}",min,GameManager.instance.gameTime.ToString());
