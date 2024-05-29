@@ -8,9 +8,9 @@ public class Bullet : MonoBehaviour
 
     private Rigidbody rBody;
 
-    //..µ¥¹ÌÁö
+    //..ë°ë¯¸ì§€
     public float damage;
-    //..°üÅë·Â
+    //..ê´€í†µë ¥
     public int per;
 
     void Awake()
@@ -37,15 +37,15 @@ public class Bullet : MonoBehaviour
             return;
         }
 
-        //..Ãæµ¹ÇÒ ¶§ ¸¶´Ù °üÅë·Â °¨¼Ò
+        //..ì¶©ëŒí•  ë•Œ ë§ˆë‹¤ ê´€í†µë ¥ ê°ì†Œ
         per--;
 
         if (this.per == -1)
         {
-            //..¼Óµµ Á¦°Å
+            //..ì†ë„ ì œê±°
             this.rBody.velocity = Vector3.zero;
 
-            //..¿ÀºêÁ§Æ® ºñÈ°¼ºÈ­
+            //..ì˜¤ë¸Œì íŠ¸ ë¹„í™œì„±í™”
             this.gameObject.SetActive(false);
         }
     }
