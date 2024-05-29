@@ -10,43 +10,43 @@ public class LevelUp : MonoBehaviour
     void Awake()
     {
         this.rect = this.GetComponent<RectTransform>();
-        //È°¼º,ºñÈ°¼º ¸ğµÎ -> (true)
+        //í™œì„±,ë¹„í™œì„± ëª¨ë‘ -> (true)
         this.items = this.GetComponentsInChildren<Item>(true);
     }
 
-    //±âº»¹«±â Áö±Ş
+    //ê¸°ë³¸ë¬´ê¸° ì§€ê¸‰
     public void Select(int i)
     {
         this.items[i].OnClick();
     }
 
-    //·¹º§¾÷ Ã¢ º¸ÀÌ±â
+    //ë ˆë²¨ì—… ì°½ ë³´ì´ê¸°
     public void Show()
     {
         this.Next();
         this.rect.localScale = Vector3.one;
-        //½Ã°£ Á¤Áö
+        //ì‹œê°„ ì •ì§€
         GameManager.instance.Stop();
     }
 
-    //·¹º§¾÷ Ã¢ ¼û±â±â
+    //ë ˆë²¨ì—… ì°½ ìˆ¨ê¸°ê¸°
     public void Hide()
     {
         this.rect.localScale = Vector3.zero;
         GameManager.instance.Resume();
     }
 
-    //¾ÆÀÌÅÛ ·£´ı »ı¼º
+    //ì•„ì´í…œ ëœë¤ ìƒì„±
     void Next()
     {
-        //...1. ¸ğµç ¾ÆÀÌÅÛ ºñÈ°¼ºÈ­
+        //...1. ëª¨ë“  ì•„ì´í…œ ë¹„í™œì„±í™”
         foreach (Item item in this.items)
         {
             item.gameObject.SetActive(false);
         }
 
-        //...2. ±× Áß¿¡¼­ ·£´ıÀ¸·Î 3°³ÀÇ ¾ÆÀÌÅÛ È°¼ºÈ­
-        //±æÀÌ°¡ 3ÀÎ ¹è¿­ ¼±¾ğ
+        //...2. ê·¸ ì¤‘ì—ì„œ ëœë¤ìœ¼ë¡œ 3ê°œì˜ ì•„ì´í…œ í™œì„±í™”
+        //ê¸¸ì´ê°€ 3ì¸ ë°°ì—´ ì„ ì–¸
         int[] ran = new int[3];
         while (true)
         {
@@ -54,26 +54,26 @@ public class LevelUp : MonoBehaviour
             ran[1] = Random.Range(0, items.Length);
             ran[2] = Random.Range(0, items.Length);
 
-            //°¢ ¹è¿­ÀÇ ¿ä¼Ò °ªÀÌ °ãÄ¡Áö ¾Ê°Ô Á¶°Ç ºÎ¿©
+            //ê° ë°°ì—´ì˜ ìš”ì†Œ ê°’ì´ ê²¹ì¹˜ì§€ ì•Šê²Œ ì¡°ê±´ ë¶€ì—¬
             if (ran[0] != ran[1] && ran[1] != ran[2] && ran[0] != ran[2])
             {
                 break;
             }
         }
 
-        //for¹® µ¹¸ç ÇØ´ç ¾ÆÀÌÅÛ È°¼ºÈ­ ½ÃÄÑÁÖ±â
+        //forë¬¸ ëŒë©° í•´ë‹¹ ì•„ì´í…œ í™œì„±í™” ì‹œì¼œì£¼ê¸°
         for (int i = 0; i < ran.Length; i++)
         {
             Item ranItem = items[ran[i]];
-            //...3. ¸¸·¾ ¾ÆÀÌÅÛÀÇ °æ¿ì ¼Òºñ ¾ÆÀÌÅÛÀ¸·Î ´ëÃ¼
+            //...3. ë§Œë ™ ì•„ì´í…œì˜ ê²½ìš° ì†Œë¹„ ì•„ì´í…œìœ¼ë¡œ ëŒ€ì²´
             if (ranItem.level == ranItem.data.descs.Length)
             {
-                //¼Òºñ¾ÆÀÌÅÛ È°¼ºÈ­
+                //ì†Œë¹„ì•„ì´í…œ í™œì„±í™”
                 items[4].gameObject.SetActive(true);
             }
             else
             {
-                //¼±ÅÃµÈ ¾ÆÀÌÅÛ È°¼ºÈ­
+                //ì„ íƒëœ ì•„ì´í…œ í™œì„±í™”
                 ranItem.gameObject.SetActive(true);
             }
         }
