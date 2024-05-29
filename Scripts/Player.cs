@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
-    //½Ì±ÛÅæ
+    //ì‹±ê¸€í†¤
     public static Player instance;
 
     public Scanner scanner;
@@ -32,31 +32,31 @@ public class Player : MonoBehaviour
     {
         if(dir != Vector3.zero)
         {
-            //ÀÌµ¿
+            //ì´ë™
             this.transform.Translate(Vector3.forward * this.speed * Time.deltaTime);
-            //È¸Àü
+            //íšŒì „
             this.transform.rotation = Quaternion.LookRotation(dir);
-            //ÀÌµ¿ ¾Ö´Ï¸ŞÀÌ¼Ç
+            //ì´ë™ ì• ë‹ˆë©”ì´ì…˜
             this.anim.SetInteger("State", 1);
         }
         else
         {
-            //Á¤Áö ¾Ö´Ï¸ŞÀÌ¼Ç
+            //ì •ì§€ ì• ë‹ˆë©”ì´ì…˜
             this.anim.SetInteger("State", 0);
         }
 
         //this.hpBar.transform.position = Camera.main.WorldToScreenPoint(this.transform.position + new Vector3(0, 0, 0));
     }
 
-    //Input Action¿¡ ¼³Á¤ÇØµĞ ActionÀ¸·Î ÀÌµ¿ÇÏ°Ô ÇÔ
+    //Input Actionì— ì„¤ì •í•´ë‘” Actionìœ¼ë¡œ ì´ë™í•˜ê²Œ í•¨
     void OnMove(InputValue value)
     {
         Vector2 input = value.Get<Vector2>();
 
-        //value°¡ 0ÀÌ ¾Æ´Ï¸é (input°ªÀ» ¹Ş°í ÀÖ´Ù¸é)
+        //valueê°€ 0ì´ ì•„ë‹ˆë©´ (inputê°’ì„ ë°›ê³  ìˆë‹¤ë©´)
         if (value != null) 
         {
-            //Vector2 °ªÀ» Vector3·Î º¯È¯
+            //Vector2 ê°’ì„ Vector3ë¡œ ë³€í™˜
             dir = new Vector3(input.x,0,input.y);
             //Debug.Log(dir);
         }
@@ -73,12 +73,12 @@ public class Player : MonoBehaviour
         GameManager.instance.health -= GameManager.instance.damage;
         Debug.LogFormat("hp : {0}",GameManager.instance.health);
 
-        //ÇÃ·¹ÀÌ¾îÀÇ hp°¡ ´Ù ´âÀ¸¸é
+        //í”Œë ˆì´ì–´ì˜ hpê°€ ë‹¤ ë‹³ìœ¼ë©´
         if(GameManager.instance.health < 0)
         {
-            //¾Ö´Ï¸ŞÀÌ¼Ç ½ÇÇà
+            //ì• ë‹ˆë©”ì´ì…˜ ì‹¤í–‰
             this.anim.SetBool("IsDie", true);
-            //°ÔÀÓ¿À¹ö ½ÇÇà
+            //ê²Œì„ì˜¤ë²„ ì‹¤í–‰
             GameManager.instance.GameOver();
         }
     }
