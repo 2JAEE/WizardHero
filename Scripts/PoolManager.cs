@@ -7,45 +7,45 @@ public class PoolManager : MonoBehaviour
 {
 
     [Header("#Prefabs")]
-    //ÇÁ¸®ÆÕ º¸°üÇÒ º¯¼ö
+    //í”„ë¦¬íŒ¹ ë³´ê´€í•  ë³€ìˆ˜
     public GameObject[] prefabs;
-    //pool ¸®½ºÆ®(°¢ ÇÁ¸®ÆÕ Á¾·ù¿¡ µû¶ó °ü¸®)
+    //pool ë¦¬ìŠ¤íŠ¸(ê° í”„ë¦¬íŒ¹ ì¢…ë¥˜ì— ë”°ë¼ ê´€ë¦¬)
     private List<GameObject>[] pools;
 
     void Awake()
     {
-        //ÇÁ¸®ÆÕ Á¾·ù¸¸Å­ List»ı¼º
+        //í”„ë¦¬íŒ¹ ì¢…ë¥˜ë§Œí¼ Listìƒì„±
         this.pools = new List<GameObject>[prefabs.Length];
         
-        //for¹® µ¹·Á¼­ ¹è¿­ ¾ÈÀÇ °¢°¢ÀÇ Listµé ÃÊ±âÈ­
+        //forë¬¸ ëŒë ¤ì„œ ë°°ì—´ ì•ˆì˜ ê°ê°ì˜ Listë“¤ ì´ˆê¸°í™”
         for(int i = 0; i < pools.Length; i++)
         {
-            //List ÃÊ±âÈ­
+            //List ì´ˆê¸°í™”
             pools[i] = new List<GameObject>();
         }
 
-        Debug.LogFormat("Ç®¸µ ¿Ï·á : {0}", this.pools.Length);
+        Debug.LogFormat("í’€ë§ ì™„ë£Œ : {0}", this.pools.Length);
     }
 
-    //item °¡Á®¿À±â(pool¿¡¼­ »©±â)
+    //item ê°€ì ¸ì˜¤ê¸°(poolì—ì„œ ë¹¼ê¸°)
     public GameObject Get(int i)
     {
-        //...°ÔÀÓ¿ÀºêÁ§Æ® Áß¿¡ ¼±ÅÃ
-        GameObject select = null;  //ÀÏ´Ü ºñ¿öµÒ
+        //...ê²Œì„ì˜¤ë¸Œì íŠ¸ ì¤‘ì— ì„ íƒ
+        GameObject select = null;  //ì¼ë‹¨ ë¹„ì›Œë‘ 
 
-        //...¼±ÅÃÇÑ poolÀÇ ³î°í ÀÖ´Â(ºñÈ°¼ºÈ­µÈ) °ÔÀÓ¿ÀºêÁ§Æ® Á¢±Ù
+        //...ì„ íƒí•œ poolì˜ ë†€ê³  ìˆëŠ”(ë¹„í™œì„±í™”ëœ) ê²Œì„ì˜¤ë¸Œì íŠ¸ ì ‘ê·¼
         foreach(GameObject item in pools[i])
         {
-            //...ºñÈ°¼ºÈ­¸é
+            //...ë¹„í™œì„±í™”ë©´
             if (!item.activeSelf)
             {
-                //...¹ß°ßÇÏ¸é --> select º¯¼ö¿¡ ÇÒ´çÈÄ È°¼ºÈ­
+                //...ë°œê²¬í•˜ë©´ --> select ë³€ìˆ˜ì— í• ë‹¹í›„ í™œì„±í™”
                 select = item;
                 select.SetActive(true);
                 break;
             }
         }
-        //...¸ø Ã£¾ÒÀ¸¸é(ÀüºÎ È°¼ºÈ­»óÅÂ¸é)
+        //...ëª» ì°¾ì•˜ìœ¼ë©´(ì „ë¶€ í™œì„±í™”ìƒíƒœë©´)
         if (!select)
         {
             select = Instantiate(prefabs[i], transform);
@@ -54,7 +54,7 @@ public class PoolManager : MonoBehaviour
         return select;
     }
 
-    //Ç®¿¡ ¹İÈ¯ÇÏ±â
+    //í’€ì— ë°˜í™˜í•˜ê¸°
     public void Release(GameObject monsterGo)
     {
         monsterGo.SetActive(false);
