@@ -9,7 +9,7 @@ public class Monster : MonoBehaviour
     [SerializeField]
     private Player player;
 
-    //...¸ó½ºÅÍ Á¤º¸
+    //...ëª¬ìŠ¤í„° ì •ë³´
     private GameObject prefab;
     private float health;
     private float maxHealth;
@@ -33,7 +33,7 @@ public class Monster : MonoBehaviour
         //this.txtDamge = GameObject.Find("Canvas/txtDamage");
     }
 
-    //Player¸¦ ÇâÇØ ÀÌµ¿
+    //Playerë¥¼ í–¥í•´ ì´ë™
     void FixedUpdate()
     {
         if (!GameManager.instance.isLive)
@@ -41,11 +41,11 @@ public class Monster : MonoBehaviour
             return;
         }
 
-        //¹æÇâ ¼³Á¤
+        //ë°©í–¥ ì„¤ì •
         Vector3 dir = this.player.transform.position - this.transform.position;
-        //player ¹Ù¶óº¸±â
+        //player ë°”ë¼ë³´ê¸°
         this.transform.LookAt(this.player.transform.position);
-        //ÀÌµ¿ÇÏ±â
+        //ì´ë™í•˜ê¸°
         this.transform.Translate(Vector3.forward * this.speed * Time.deltaTime);
     }
 
@@ -62,8 +62,8 @@ public class Monster : MonoBehaviour
         
 
         this.health -= this.bullet.damage;
-        //Debug.LogFormat("<color=yellow>¸ó½ºÅÍ : {0}</color>",this.bullet.damage);
-        //°ø°İ¹ŞÀ½
+        //Debug.LogFormat("<color=yellow>ëª¬ìŠ¤í„° : {0}</color>",this.bullet.damage);
+        //ê³µê²©ë°›ìŒ
         
         this.Hit(this.bullet.damage);
 
@@ -82,17 +82,17 @@ public class Monster : MonoBehaviour
             this.isLive = false;
             this.col.enabled = false;
             this.anim.SetBool("Dead", true);
-            //ÄÚ·çÆ¾ ½ÇÇà
+            //ì½”ë£¨í‹´ ì‹¤í–‰
             this.StartCoroutine(CoDie());
-            //°æÇèÄ¡ Áõ°¡
+            //ê²½í—˜ì¹˜ ì¦ê°€
             GameManager.instance.GetExp();
-            //Å³ ¼ö Áõ°¡
+            //í‚¬ ìˆ˜ ì¦ê°€
             GameManager.instance.kill++;
             //Debug.LogFormat("<color=green>Kill:{0}</color>",GameManager.instance.kill);
         }
     }
 
-    //°ø°İ¹ŞÀ½
+    //ê³µê²©ë°›ìŒ
     public void Hit(float damage)
     {
         this.onHit(damage);
@@ -106,7 +106,7 @@ public class Monster : MonoBehaviour
         this.anim.SetBool("Dead", false);
     }
 
-    //ÃÊ±âÈ­
+    //ì´ˆê¸°í™”
     public void Init(SpawnData data)
     {
         this.speed = data.speed;
@@ -114,18 +114,18 @@ public class Monster : MonoBehaviour
         this.health = data.health;
     }
 
-    //Á×À½ ÄÚ·çÆ¾
+    //ì£½ìŒ ì½”ë£¨í‹´
     IEnumerator CoDie()
     {
         this.anim.SetBool("Dead", true);
 
         yield return new WaitForSecondsRealtime(0.3f);
 
-        //pool¿¡ ´Ù½Ã ³Ö¾îÁÖ±â
+        //poolì— ë‹¤ì‹œ ë„£ì–´ì£¼ê¸°
         GameManager.instance.pool.Release(this.gameObject);
     }
 
-    //ÇÇ°İ ÄÚ·çÆ¾
+    //í”¼ê²© ì½”ë£¨í‹´
     IEnumerator HitBack()
     {
         yield return this.wait;
