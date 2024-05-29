@@ -6,7 +6,7 @@ using UnityEngine.XR;
 
 public class Weapon : MonoBehaviour
 {
-    //¹«±âid, ÇÁ¸®ÆÕid, damage, °¹¼ö, ¼Óµµ
+    //ë¬´ê¸°id, í”„ë¦¬íŒ¹id, damage, ê°¯ìˆ˜, ì†ë„
     public int id;
     public int prefabId;
     public float damage;
@@ -21,7 +21,7 @@ public class Weapon : MonoBehaviour
 
     private void Awake()
     {
-        //ºÎ¸ğ ¿ÀºêÁ§Æ®¿¡ ÀÖ´Â ÄÄÆ÷³ÍÆ® °¡Á®¿À±â
+        //ë¶€ëª¨ ì˜¤ë¸Œì íŠ¸ì— ìˆëŠ” ì»´í¬ë„ŒíŠ¸ ê°€ì ¸ì˜¤ê¸°
         this.player = GameManager.instance.player;
         this.playerPos = GameManager.instance.playerPos;
     }
@@ -33,11 +33,11 @@ public class Weapon : MonoBehaviour
             return;
         }
 
-        //id º°·Î °ü¸®
+        //id ë³„ë¡œ ê´€ë¦¬
         switch (id)
         {
             case 0:
-                //bullet(¾óÀ½ ¿Àºê) È¸Àü½ÃÅ°±â
+                //bullet(ì–¼ìŒ ì˜¤ë¸Œ) íšŒì „ì‹œí‚¤ê¸°
                 this.transform.Rotate(Vector3.back * this.speed * Time.deltaTime);
                 break;
             case 1:
@@ -48,21 +48,21 @@ public class Weapon : MonoBehaviour
 
                 if (this.timer > this.speed)
                 {
-                    //timer ÃÊ±âÈ­
+                    //timer ì´ˆê¸°í™”
                     this.timer = 0f;
-                    //ÃÑ¾Ë ¹ß»ç   
+                    //ì´ì•Œ ë°œì‚¬   
                     this.Fire();
                 }
                 break;
         }
     }
 
-    //idº°·Î ÃÊ±âÈ­
+    //idë³„ë¡œ ì´ˆê¸°í™”
     public void Init(ItemData data)
     {
         //...Basic Set
         this.name = "Weapon" + data.itemId;
-        //ºÎ¸ğ transform ¼³Á¤
+        //ë¶€ëª¨ transform ì„¤ì •
         this.transform.parent = this.playerPos.transform;
         this.transform.localPosition = Vector3.zero;
 
@@ -74,7 +74,7 @@ public class Weapon : MonoBehaviour
 
         for (int i = 0; i < GameManager.instance.pool.prefabs.Length; i++)
         {
-            //¹«±â ÇÁ¸®ÆÕ°ú ¿ÀºêÁ§Æ® Ç®ÀÇ ÇÁ¸®ÆÕ ¿¬µ¿
+            //ë¬´ê¸° í”„ë¦¬íŒ¹ê³¼ ì˜¤ë¸Œì íŠ¸ í’€ì˜ í”„ë¦¬íŒ¹ ì—°ë™
             if (data.projectile == GameManager.instance.pool.prefabs[i])
             {
                 this.prefabId = i;
@@ -92,20 +92,20 @@ public class Weapon : MonoBehaviour
             case 1:
                 break;
             case 2:
-                //ÃÑ¾Ë ¹ß»ç ¼Óµµ
+                //ì´ì•Œ ë°œì‚¬ ì†ë„
                 this.speed = 0.4f;
                 break;
         }
 
 
-        //player°¡ °¡Áö°í ÀÖ´Â ¸ğµç Àåºñ¿¡ ApplyGear Àû¿ë
-        //...Æ¯Á¤ ÇÔ¼ö È£ÃâÀ» ¸ğµç ÀÚ½Ä¿¡°Ô ¹æ¼ÛÇÏ´Â ÇÔ¼ö
-        //2¹øÂ° ÀÎÀÚ°ªÀ¸·Î 'DontRequireReceiver' Ãß°¡ (²À receiver°¡ ÇÊ¿äÇÏÁö ¾Ê´Ù)
+        //playerê°€ ê°€ì§€ê³  ìˆëŠ” ëª¨ë“  ì¥ë¹„ì— ApplyGear ì ìš©
+        //...íŠ¹ì • í•¨ìˆ˜ í˜¸ì¶œì„ ëª¨ë“  ìì‹ì—ê²Œ ë°©ì†¡í•˜ëŠ” í•¨ìˆ˜
+        //2ë²ˆì§¸ ì¸ìê°’ìœ¼ë¡œ 'DontRequireReceiver' ì¶”ê°€ (ê¼­ receiverê°€ í•„ìš”í•˜ì§€ ì•Šë‹¤)
         //this.player.BroadcastMessage("ApplyGear", SendMessageOptions.DontRequireReceiver);
     }
 
-    //...·¹º§¾÷ ¸Ş¼­µå
-    //·¹º§¾÷ ½Ã damage¿Í count Á¶ÀıÇÏ±â
+    //...ë ˆë²¨ì—… ë©”ì„œë“œ
+    //ë ˆë²¨ì—… ì‹œ damageì™€ count ì¡°ì ˆí•˜ê¸°
     public void LevelUp(float damage, int count, float speed, float size)
     {
         this.damage = damage;
@@ -113,64 +113,64 @@ public class Weapon : MonoBehaviour
         this.speed = speed;
         this.size = size;
 
-        //·¹º§ = 0 , ±ÙÁ¢¹«±âÀÏ °æ¿ì
+        //ë ˆë²¨ = 0 , ê·¼ì ‘ë¬´ê¸°ì¼ ê²½ìš°
         if (id == 0)
         {
-            //¹èÄ¡ÇØ¾ÆÇÔ
+            //ë°°ì¹˜í•´ì•„í•¨
             this.Batch();
         }
         else if(id == 1)
         {
-            //¾Æ¿ì¶ó »çÀÌÁî ¾÷
+            //ì•„ìš°ë¼ ì‚¬ì´ì¦ˆ ì—…
             this.RateUp(this.size);
         }
-        //...BroadcastMessage ÃÊ±âÈ­
+        //...BroadcastMessage ì´ˆê¸°í™”
         //this.player.BroadcastMessage("ApplyGear", SendMessageOptions.DontRequireReceiver);
     }
 
 
-    //...±Ù°Å¸® bullet(»ğ) ¹èÄ¡ÇÏ±â
+    //...ê·¼ê±°ë¦¬ bullet(ì‚½) ë°°ì¹˜í•˜ê¸°
     void Batch()
     {
         for (int i = 0; i < this.count; i++)
         {
-            //...bullet °ÔÀÓ¿ÀºêÁ§Æ® »ı¼º ÈÄ
-            //WeaponÀÇ ÀÚ½ÄÀ¸·Î ³Ö±â À§ÇØ transform°¡Á®¿Í Áö¿ªº¯¼ö¿¡ ³Ö±â
+            //...bullet ê²Œì„ì˜¤ë¸Œì íŠ¸ ìƒì„± í›„
+            //Weaponì˜ ìì‹ìœ¼ë¡œ ë„£ê¸° ìœ„í•´ transformê°€ì ¸ì™€ ì§€ì—­ë³€ìˆ˜ì— ë„£ê¸°
             Transform bullet;
 
-            //...i°¡ childCount ¹üÀ§ ³»¶ó¸é
+            //...iê°€ childCount ë²”ìœ„ ë‚´ë¼ë©´
             if (i < this.transform.childCount)
             {
-                //ÇöÀç child¸¦ »ç¿ë
+                //í˜„ì¬ childë¥¼ ì‚¬ìš©
                 bullet = this.transform.GetChild(i);
             }
             else
             {
-                //...i°¡ ¹üÀ§¸¦ ³Ñ¾î¼­¸é
-                //'¸ğÀÚ¶õ ¼ö ¸¸Å­' Ç®¸µÀ¸·Î °¡Á®¿È
+                //...iê°€ ë²”ìœ„ë¥¼ ë„˜ì–´ì„œë©´
+                //'ëª¨ìë€ ìˆ˜ ë§Œí¼' í’€ë§ìœ¼ë¡œ ê°€ì ¸ì˜´
                 bullet = GameManager.instance.pool.Get(prefabId).transform;
-                //ÇöÀç transformÀ» ºÎ¸ğ·Î ¼³Á¤
+                //í˜„ì¬ transformì„ ë¶€ëª¨ë¡œ ì„¤ì •
                 bullet.parent = this.transform;
             }
 
-            //...bulletÀ§Ä¡ playerÀÇ À§Ä¡·Î ÃÊ±âÈ­
-            //levelup ÇßÀ»¶§ À§Ä¡ ¿À·ù ¹æÁö
+            //...bulletìœ„ì¹˜ playerì˜ ìœ„ì¹˜ë¡œ ì´ˆê¸°í™”
+            //levelup í–ˆì„ë•Œ ìœ„ì¹˜ ì˜¤ë¥˜ ë°©ì§€
             bullet.localPosition = Vector3.zero;
             bullet.localRotation = Quaternion.identity;
 
-            //...È¸Àü °¢µµ(zÃà) ¼³Á¤
-            //count(°¹¼ö)¸¸Å­ È¸Àü°¢ ³ª´©¾î¼­ ¹èÄ¡
+            //...íšŒì „ ê°ë„(zì¶•) ì„¤ì •
+            //count(ê°¯ìˆ˜)ë§Œí¼ íšŒì „ê° ë‚˜ëˆ„ì–´ì„œ ë°°ì¹˜
             Vector3 rot = Vector3.forward * 360 * i / count;
             bullet.Rotate(rot);
-            //Player·Î ºÎÅÍ 2f °Å¸®¸¸Å­ ¶³¾îÁ®¼­ À§Ä¡
+            //Playerë¡œ ë¶€í„° 2f ê±°ë¦¬ë§Œí¼ ë–¨ì–´ì ¸ì„œ ìœ„ì¹˜
             bullet.Translate(bullet.up * 2f, Space.World);
 
-            //bullet ÃÊ±âÈ­
-            bullet.GetComponent<Bullet>().Init(this.damage, -1, Vector3.zero);  // -1 == ¹«ÇÑ, ¹«ÇÑ °üÅë
+            //bullet ì´ˆê¸°í™”
+            bullet.GetComponent<Bullet>().Init(this.damage, -1, Vector3.zero);  // -1 == ë¬´í•œ, ë¬´í•œ ê´€í†µ
         }
     }
 
-    //...¿ø°Å¸® Bullet(ÃÑ¾Ë) ¹ß»ç
+    //...ì›ê±°ë¦¬ Bullet(ì´ì•Œ) ë°œì‚¬
     void Fire()
     {
         if (!this.player.scanner.nearestTarget)
@@ -178,55 +178,55 @@ public class Weapon : MonoBehaviour
             return;
         }
 
-        //°¡Àå °¡±î¿î ¸ó½ºÅÍ À§Ä¡
+        //ê°€ì¥ ê°€ê¹Œìš´ ëª¬ìŠ¤í„° ìœ„ì¹˜
         Vector3 targetPos = this.player.scanner.nearestTarget.position;
-        //...ÃÑ¾Ë ¹æÇâ ¼³Á¤
+        //...ì´ì•Œ ë°©í–¥ ì„¤ì •
         Vector3 dir = targetPos - transform.position;
-        //ÇöÀç VectorÀÇ ¹æÇâÀº À¯Áö, Å©±â´Â 1·Î º¯È¯
+        //í˜„ì¬ Vectorì˜ ë°©í–¥ì€ ìœ ì§€, í¬ê¸°ëŠ” 1ë¡œ ë³€í™˜
         dir = dir.normalized;
 
         Transform bullet = GameManager.instance.pool.Get(prefabId).transform;
-        //ÇöÀç transformÀ» ºÎ¸ğ·Î ¼³Á¤
+        //í˜„ì¬ transformì„ ë¶€ëª¨ë¡œ ì„¤ì •
         bullet.parent = this.transform;
         bullet.position = this.transform.position;
         bullet.rotation = Quaternion.FromToRotation(Vector3.up, dir);
 
-        //bullet ÃÊ±âÈ­
-        bullet.GetComponent<Bullet>().Init(this.damage, 0, dir);  // -1 == ¹«ÇÑ, ¹«ÇÑ °üÅë
+        //bullet ì´ˆê¸°í™”
+        bullet.GetComponent<Bullet>().Init(this.damage, 0, dir);  // -1 == ë¬´í•œ, ë¬´í•œ ê´€í†µ
 
 
         //for (int i = 0; i < this.count; i++)
         //{
-        //    //...bullet °ÔÀÓ¿ÀºêÁ§Æ® »ı¼º ÈÄ
-        //    //WeaponÀÇ ÀÚ½ÄÀ¸·Î ³Ö±â À§ÇØ transform°¡Á®¿Í Áö¿ªº¯¼ö¿¡ ³Ö±â
+        //    //...bullet ê²Œì„ì˜¤ë¸Œì íŠ¸ ìƒì„± í›„
+        //    //Weaponì˜ ìì‹ìœ¼ë¡œ ë„£ê¸° ìœ„í•´ transformê°€ì ¸ì™€ ì§€ì—­ë³€ìˆ˜ì— ë„£ê¸°
         //    Transform bullet;
 
-        //    //...i°¡ childCount ¹üÀ§ ³»¶ó¸é
+        //    //...iê°€ childCount ë²”ìœ„ ë‚´ë¼ë©´
         //    if (i < this.transform.childCount)
         //    {
-        //        //ÇöÀç child¸¦ »ç¿ë
+        //        //í˜„ì¬ childë¥¼ ì‚¬ìš©
         //        bullet = this.transform.GetChild(i);
         //    }
         //    else
         //    {
-        //        //...i°¡ ¹üÀ§¸¦ ³Ñ¾î¼­¸é
-        //        //'¸ğÀÚ¶õ ¼ö ¸¸Å­' Ç®¸µÀ¸·Î °¡Á®¿È
+        //        //...iê°€ ë²”ìœ„ë¥¼ ë„˜ì–´ì„œë©´
+        //        //'ëª¨ìë€ ìˆ˜ ë§Œí¼' í’€ë§ìœ¼ë¡œ ê°€ì ¸ì˜´
         //        bullet = GameManager.instance.pool.Get(prefabId).transform;
-        //        //ÇöÀç transformÀ» ºÎ¸ğ·Î ¼³Á¤
+        //        //í˜„ì¬ transformì„ ë¶€ëª¨ë¡œ ì„¤ì •
         //        bullet.parent = this.transform;
 
-        //        //°¡Àå °¡±î¿î ¸ó½ºÅÍ À§Ä¡
+        //        //ê°€ì¥ ê°€ê¹Œìš´ ëª¬ìŠ¤í„° ìœ„ì¹˜
         //        Vector3 targetPos = this.player.scanner.nearestTarget.position;
-        //        //...ÃÑ¾Ë ¹æÇâ ¼³Á¤
+        //        //...ì´ì•Œ ë°©í–¥ ì„¤ì •
         //        Vector3 dir = targetPos - transform.position;
-        //        //ÇöÀç VectorÀÇ ¹æÇâÀº À¯Áö, Å©±â´Â 1·Î º¯È¯
+        //        //í˜„ì¬ Vectorì˜ ë°©í–¥ì€ ìœ ì§€, í¬ê¸°ëŠ” 1ë¡œ ë³€í™˜
         //        dir = dir.normalized;
 
         //        bullet.position = this.transform.position;
         //        bullet.rotation = Quaternion.FromToRotation(Vector3.up, dir);
 
-        //        //bullet ÃÊ±âÈ­
-        //        bullet.GetComponent<Bullet>().Init(this.damage, 0, dir);  // -1 == ¹«ÇÑ, ¹«ÇÑ °üÅë
+        //        //bullet ì´ˆê¸°í™”
+        //        bullet.GetComponent<Bullet>().Init(this.damage, 0, dir);  // -1 == ë¬´í•œ, ë¬´í•œ ê´€í†µ
         //    }
         //}
     }
@@ -246,30 +246,30 @@ public class Weapon : MonoBehaviour
     {
         for (int i = 0; i < this.count; i++)
         {
-            //...bullet °ÔÀÓ¿ÀºêÁ§Æ® »ı¼º ÈÄ
-            //WeaponÀÇ ÀÚ½ÄÀ¸·Î ³Ö±â À§ÇØ transform°¡Á®¿Í Áö¿ªº¯¼ö¿¡ ³Ö±â
+            //...bullet ê²Œì„ì˜¤ë¸Œì íŠ¸ ìƒì„± í›„
+            //Weaponì˜ ìì‹ìœ¼ë¡œ ë„£ê¸° ìœ„í•´ transformê°€ì ¸ì™€ ì§€ì—­ë³€ìˆ˜ì— ë„£ê¸°
             Transform bullet;
 
-            //...i°¡ childCount ¹üÀ§ ³»¶ó¸é
+            //...iê°€ childCount ë²”ìœ„ ë‚´ë¼ë©´
             if (i < this.transform.childCount)
             {
-                //ÇöÀç child¸¦ »ç¿ë
+                //í˜„ì¬ childë¥¼ ì‚¬ìš©
                 bullet = this.transform.GetChild(i);
             }
             else
             {
-                //...i°¡ ¹üÀ§¸¦ ³Ñ¾î¼­¸é
-                //'¸ğÀÚ¶õ ¼ö ¸¸Å­' Ç®¸µÀ¸·Î °¡Á®¿È
+                //...iê°€ ë²”ìœ„ë¥¼ ë„˜ì–´ì„œë©´
+                //'ëª¨ìë€ ìˆ˜ ë§Œí¼' í’€ë§ìœ¼ë¡œ ê°€ì ¸ì˜´
                 bullet = GameManager.instance.pool.Get(prefabId).transform;
-                //ÇöÀç transformÀ» ºÎ¸ğ·Î ¼³Á¤
+                //í˜„ì¬ transformì„ ë¶€ëª¨ë¡œ ì„¤ì •
                 bullet.parent = this.transform;
                 //bullet.transform.position = this.transform.position;
             }
 
             //Transform bullet = GameManager.instance.pool.Get(prefabId).transform;
             //bullet.position = this.transform.position;
-            //bullet ÃÊ±âÈ­
-            bullet.GetComponent<Bullet>().Init(this.damage, -1, Vector3.zero);  // -1 == ¹«ÇÑ, ¹«ÇÑ °üÅë
+            //bullet ì´ˆê¸°í™”
+            bullet.GetComponent<Bullet>().Init(this.damage, -1, Vector3.zero);  // -1 == ë¬´í•œ, ë¬´í•œ ê´€í†µ
         }
     }
 }
