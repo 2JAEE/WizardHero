@@ -12,7 +12,7 @@ public class HUD : MonoBehaviour
 
     public eInfoType type;
 
-    //..UI Å¸ÀÔ
+    //..UI íƒ€ì…
     private Slider slider;
     private Text text;
 
@@ -34,22 +34,22 @@ public class HUD : MonoBehaviour
                 this.slider.value = curExp / nextExp;
                 break;
             case eInfoType.Level:
-                this.text.text = string.Format("·¹º§ {0}", GameManager.instance.level.ToString());
+                this.text.text = string.Format("ë ˆë²¨ {0}", GameManager.instance.level.ToString());
                 break;
             case eInfoType.LevelTxt:
-                this.text.text = string.Format("{0} ·¹º§ µµ´Ş", GameManager.instance.level.ToString());
+                this.text.text = string.Format("{0} ë ˆë²¨ ë„ë‹¬", GameManager.instance.level.ToString());
                 break;
             case eInfoType.Health:
                 float curHealth = GameManager.instance.health;
                 float maxHealth = GameManager.instance.maxHealth;
-                //½½¶óÀÌ´õ °ª
+                //ìŠ¬ë¼ì´ë” ê°’
                 this.slider.value = curHealth/maxHealth;
                 break;
             case eInfoType.Time:
                 float remainTime = GameManager.instance.maxGameTime - GameManager.instance.gameTime;
-                //ºĞ
+                //ë¶„
                 int min = Mathf.FloorToInt(remainTime / 60);
-                //ÃÊ (% : ³ª¸ÓÁö, D: Ç¥½ÃÇÒ ÀÚ¸´¼ö)
+                //ì´ˆ (% : ë‚˜ë¨¸ì§€, D: í‘œì‹œí•  ìë¦¿ìˆ˜)
                 int sec = Mathf.FloorToInt(remainTime % 60);
                 text.text = string.Format("{0:D2}:{1:D2}", min, sec);
                 break;
