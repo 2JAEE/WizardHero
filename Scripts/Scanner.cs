@@ -11,12 +11,12 @@ public class Scanner : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //scanRange ³»¿¡ ÇØ´çÇÏ´Â targetLayerÀÇ À§Ä¡¸¦ ¹è¿­¿¡ ÀúÀå
+        //scanRange ë‚´ì— í•´ë‹¹í•˜ëŠ” targetLayerì˜ ìœ„ì¹˜ë¥¼ ë°°ì—´ì— ì €ì¥
         targets = Physics.OverlapSphere(transform.position, scanRange,targetLayer);
         nearestTarget = GetNearest();
     }
 
-    //°¡Àå °¡±î¿î target À§Ä¡ ¹İÈ¯ ¸Ş¼­µå
+    //ê°€ì¥ ê°€ê¹Œìš´ target ìœ„ì¹˜ ë°˜í™˜ ë©”ì„œë“œ
     Transform GetNearest()
     {
         Transform result = null;
@@ -27,7 +27,7 @@ public class Scanner : MonoBehaviour
             Vector3 targetPos = target.transform.position;
             float curDis = Vector3.Distance(myPos, targetPos);
 
-            //´õ °¡±î¿î À§Ä¡¸¦ °»½Å
+            //ë” ê°€ê¹Œìš´ ìœ„ì¹˜ë¥¼ ê°±ì‹ 
             if (curDis < dis)
             {
                 dis = curDis;
@@ -35,7 +35,7 @@ public class Scanner : MonoBehaviour
             }
         }
 
-        //°¡Àå °¡±î¿î targetÀ§Ä¡ ¹İÈ¯
+        //ê°€ì¥ ê°€ê¹Œìš´ targetìœ„ì¹˜ ë°˜í™˜
         return result;
         
     }
