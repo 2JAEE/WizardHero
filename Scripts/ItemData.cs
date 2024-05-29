@@ -31,7 +31,7 @@ public class ItemData : ScriptableObject
     public float[] sizes;
     public float[] speeds;
 
-    //¹«±â Á¤º¸
+    //Â¹Â«Â±Ã¢ ÃÂ¤ÂºÂ¸
     [Header("# Weapon")]
     public GameObject projectile;
 }
