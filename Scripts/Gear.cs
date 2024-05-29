@@ -12,7 +12,7 @@ public class Gear : MonoBehaviour
     {
         //...Basic Set
         name = "Gear" + data.itemId;
-        //ºÎ¸ğ transform ¼³Á¤
+        //ë¶€ëª¨ transform ì„¤ì •
         this.transform.parent = GameManager.instance.player.transform;
         this.transform.localPosition = Vector3.zero;
 
@@ -20,18 +20,18 @@ public class Gear : MonoBehaviour
         type = data.itemType;
         rate = data.damages[0];
 
-        //...Àåºñ°¡ »ı¼ºµÇ¸é GearÀÇ ±â´ÉÀ» Àû¿ë½ÃÅ´
+        //...ì¥ë¹„ê°€ ìƒì„±ë˜ë©´ Gearì˜ ê¸°ëŠ¥ì„ ì ìš©ì‹œí‚´
         this.ApplyGear();
     }
 
-    //...·¹º§¾÷
+    //...ë ˆë²¨ì—…
     public void LevelUp(float rate)
     {
-        //rate °ª °»½Å
+        //rate ê°’ ê°±ì‹ 
         this.rate = rate;
 
-        //...Àåºñ°¡ »õ·Ó°Ô Ãß°¡ µÇ°Å³ª ·¹º§¾÷ ÇÒ ¶§ ·ÎÁ÷Àû¿ë ÇÔ¼ö È£Ãâ
-        //ÇÃ·¹ÀÌ¾îÀÇ weaponµé¿¡°Ô ´Ù½Ã Àû¿ë
+        //...ì¥ë¹„ê°€ ìƒˆë¡­ê²Œ ì¶”ê°€ ë˜ê±°ë‚˜ ë ˆë²¨ì—… í•  ë•Œ ë¡œì§ì ìš© í•¨ìˆ˜ í˜¸ì¶œ
+        //í”Œë ˆì´ì–´ì˜ weaponë“¤ì—ê²Œ ë‹¤ì‹œ ì ìš©
         this.ApplyGear();
     }
 
@@ -53,13 +53,13 @@ public class Gear : MonoBehaviour
         }
     }
 
-    //...ÇÇÇØ °¨¼â
+    //...í”¼í•´ ê°ì‡„
     void RateUp()
     {
         GameManager.instance.damage -= GameManager.instance.damage * this.rate;
     }
 
-    //...playerÀÇ ÀÌµ¿¼Óµµ Áõ°¡
+    //...playerì˜ ì´ë™ì†ë„ ì¦ê°€
     void SpeedUp()
     {
         float speed = 5f;
